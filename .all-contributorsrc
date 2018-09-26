@@ -18,6 +18,18 @@
         "doc",
         "ideas"
       ]
+    },
+    {
+      "login": "chadwatson",
+      "name": "Chad Watson",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/5865074?v=4",
+      "profile": "https://github.com/chadwatson",
+      "contributions": [
+        "question",
+        "code",
+        "design",
+        "ideas"
+      ]
     }
   ],
   "repoType": "github"
