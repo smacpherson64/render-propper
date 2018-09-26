@@ -1,4 +1,2 @@
-import { renderProp } from './lib/render-prop';
-import { childrenRenderProp } from './lib/children-render-prop';
-
-export { renderProp, childrenRenderProp };
+export { renderProp } from './lib/render-prop';
+export { childrenRenderProp } from './lib/children-render-prop';
