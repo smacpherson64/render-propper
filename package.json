@@ -28,10 +28,14 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "ramda": "^0.25.0"
+    "jest-dom": "^1.12.1",
+    "ramda": "^0.25.0",
+    "react-dom": "^16.5.2"
   },
   "devDependencies": {
-    "kcd-scripts": "^0.36.1"
+    "kcd-scripts": "^0.44.0",
+    "react": "^16.5.2",
+    "react-testing-library": "^5.1.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"
