@@ -74,7 +74,9 @@ here!
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
+<!-- prettier-ignore -->
+| [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/smacpherson64/render-propper/commits?author=smacpherson64 "Code") [🎨](#design-smacpherson64 "Design") [📖](https://github.com/smacpherson64/render-propper/commits?author=smacpherson64 "Documentation") [🤔](#ideas-smacpherson64 "Ideas, Planning, & Feedback") |
+| :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
