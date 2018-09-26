@@ -1,6 +1,6 @@
 {
   "name": "render-propper",
-  "version": "0.0.1-semantically-released",
+  "version": "0.0.0-semantically-released",
   "description": "Render propper helper library helps generate functional render props",
   "main": "dist/index.js",
   "engines": {
