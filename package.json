@@ -1,6 +1,6 @@
 {
   "name": "render-propper",
-  "version": "0.0.0-semantically-released",
+  "version": "0.0.1-semantically-released",
   "description": "Render propper helper library helps generate functional render props",
   "main": "dist/index.js",
   "engines": {
@@ -18,7 +18,9 @@
     "precommit": "kcd-scripts precommit"
   },
   "files": [
-    "dist"
+    "dist",
+    "index.js",
+    "index.d.ts"
   ],
   "keywords": [
     "react",
@@ -28,17 +30,22 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "jest-dom": "^1.12.1",
-    "ramda": "^0.25.0",
-    "react-dom": "^16.5.2"
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
+    "jest-dom": "^1.12.1",
     "kcd-scripts": "^0.44.0",
     "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-testing-library": "^5.1.0"
   },
   "eslintConfig": {
-    "extends": "./node_modules/kcd-scripts/eslint.js"
+    "extends": "./node_modules/kcd-scripts/eslint.js",
+    "rules": {
+      "react/prop-types": "off",
+      "import/no-unassigned-import": "off",
+      "import/named": "off"
+    }
   },
   "eslintIgnore": [
     "node_modules",
