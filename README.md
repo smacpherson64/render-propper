@@ -126,7 +126,7 @@ The PassThrough example using an object.
 ```typescript
 const object = {
   children: results => {
-    document.createElement('div');
+    const div = document.createElement('div');
     div.innerHTML = results;
 
     return div;
@@ -178,7 +178,7 @@ const component = (
 ```typescript
 const example = {
   children: results => {
-    document.createElement('div');
+    const div = document.createElement('div');
     div.innerHTML = results;
 
     return div;
