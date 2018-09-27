@@ -15,7 +15,7 @@
     "test:update": "npm test -- --updateSnapshot --coverage",
     "validate": "kcd-scripts validate",
     "setup": "npm install && npm run validate -s",
-    "precommit": "kcd-scripts precommit"
+    "precommit": "npx kcd-scripts precommit"
   },
   "files": [
     "dist",
