@@ -1,6 +1,6 @@
 <div align="center">
-<h1>render-propper</h1>
-<p>Helper to create functional render props</p>
+<h1>RenderPropper</h1>
+<p>Creates functional render props</p>
 </div>
 
 <hr />
@@ -28,8 +28,11 @@
   - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
-  - [PassThrough Examples](#passthrough-examples)
+  - [(More) PassThrough Examples](#more-passthrough-examples)
   - [SumEvenNumbers Example](#sumevennumbers-example)
+- [Exports](#exports)
+  - [renderProps](#renderprops)
+  - [childrenRenderProps](#childrenrenderprops)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Contributors](#contributors)
@@ -50,32 +53,34 @@ npm install --save render-propper
 
 ## Usage
 
-Render propper helps to create functional render props. The example below helps break down how render propper accomplishes this goal:
+RenderPropper aims to create functional render props. The example below helps break down how RenderPropper accomplishes this goal:
 
 ```typescript
 import { renderProp } from 'render-propper';
 
 /*
-* Determines how to transform input to a result that can be used by the renderer.
-* The current logic is an identity function that passes returns what is received.
+* Determines how to transform the input into a result that can be used by the renderer.
+* The current logic is an identity function that returns what it receives.
 *
-* For example: assuming 'value' as input: the string 'value' would be returned to the renderer.
+* Assuming the string 'value' as input: 'value' would be returned to the renderer.
 */
 const logic = input => input;
 
 /*
 * Determines how to render the results to output.
-* The current logic is again an identity function that passes returns what is received.
-* (usually this would return some type of visual rendering but it can be anything)
+* The current logic is again an identity function, it returns what it receives.
 *
-* For example: assuming 'value' as input: the string 'value' would be returned (rendered) as output.
+* NOTE: Typically the renderer would return object or html that renders to the DOM,
+* however anything can be rendered as the output.
+*
+* Again assuming the string 'value' as the result: 'value' would be returned (rendered) as output.
 */
 const renderer = results => results;
 
 /*
 * Generates the actual render prop using the renderer and logic.
 *
-* Returns a function awaiting input.
+* Returns a function awaiting the input.
 */
 const PassThrough = renderProp(() => renderer, logic);
 
@@ -87,7 +92,7 @@ PassThrough(false); // false
 
 ## Examples
 
-### PassThrough Examples
+### (More) PassThrough Examples
 
 The basic examples below take an object in and pass the same object back.
 
@@ -184,6 +189,42 @@ const example = {
 PassThrough(object);
 
 // <div>30</div>
+```
+
+## Exports
+
+### renderProps
+
+The main logic for creating render props.
+
+The function is curried (childrenRenderProps is an example of this) and can be used to generate renderProps functions:
+
+```tsx
+    // Non-functional example for demonstration purposes:
+
+    const exampleRenderProp = renderProp(R.prop('example'));
+    const LastNameList = exampleRenderProp(... lastNameFunction ...);
+    const FullNameList = exampleRenderProp(... fullNameFunction ...);
+
+    const nameMap = (name, index) => <div key={index}>{name}</div>);
+
+    <LastNameList names={... namesArray ...} example={names => names.map(nameMap)} />
+    <FullNameList names={... namesArray ...} example={names => names.map(nameMap)} />
+```
+
+### childrenRenderProps
+
+In React, often my default for render props is to use the children prop (explicitly or implicitly). This is a small helper that makes creating a childrenRenderProp easier.
+
+```tsx
+    // Non-functional example for demonstration purposes:
+    const LastNameList = childrenRenderProp(... lastNameFunction ...);
+    const FullNameList = childrenRenderProp(... fullNameFunction ...);
+
+    const nameMap = (name, index) => <div key={index}>{name}</div>);
+
+    <LastNameList names={... namesArray ...} children={names => names.map(nameMap)} /> // Explicit
+    <FullNameList names={... namesArray ...}>{names => names.map(nameMap)}</FullNameList> // Implicit
 ```
 
 ## Inspiration
