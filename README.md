@@ -1,7 +1,7 @@
 <div align="center">
-<h1>render-propper</h1>
+<h1>`render-propper`</h1>
 
-<p>Render propper helper library helps generate functional render props</p>
+<p>`render-propper` creates purely functional render props</p>
 </div>
 
 <hr />
@@ -20,26 +20,15 @@
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 
-## The problem
-
-// TODO
-
-## This solution
-
-// TODO
-
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION. It'll update automatically -->
 
+- [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Props](#props)
-- [Control Props](#control-props)
-- [Child Callback Function](#child-callback-function)
 - [Examples](#examples)
-- [FAQ](#faq)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Contributors](#contributors)
@@ -47,7 +36,9 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Installation
+## Getting Started
+
+### Installation
 
 This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `dependencies`:
@@ -58,11 +49,107 @@ npm install --save render-propper
 
 ## Usage
 
-// TODO
+At it's core, `render-propper` passes the results from one function and passes it into a render function. The pass through example below helps break down how it works:
+
+```typescript
+import { renderProp } from 'render-propper';
+
+const value = 'value';
+
+/*
+* Handles what should happen to the input. 
+* The output of this function is passed to the render function.
+*/
+const logicFunction = input => input;
+
+/*
+* Renders the results from the logicFunction into the desired output.
+* The rendered output usually some type of HTML or object but can be anything.
+*/
+const renderFunction = results => results;
+
+/*
+* Creates a PassThrough Render Prop that passes back the same value passed in.
+*/
+const PassThrough = renderProp(() => renderFunction, logicFunction);
+
+PassThrough(value); // 'value'
+```
+
+## Examples
+
+### PassThrough Examples
+
+The basic examples below take an object in and pass the same object back.
+
+#### React PassThrough Example
+
+```typescript
+import * as React from 'react';
+import * as R from 'ramda';
+
+const PassThrough = renderProp(R.prop('children'), R.prop('value'));
+const component = (
+  <PassThrough value="value">{result => <div>{result}</div>}</PassThrough>
+);
+
+/* component:
+* <div>value</div>
+*/
+```
+
+### SumEvenNumbers Example
+
+All examples below utilize the same functional logic:
+
+```typescript
+import * as R from 'ramda';
+
+const isEven = n => n % 2 === 0;
+
+const sumEvenNumbers = R.compose(
+  R.sum,
+  R.filter(isEven),
+  R.prop('array')
+);
+
+const SumEven = renderProp(R.prop('children'), sumEvenNumbers);
+```
+
+#### React SumEvenNumbers Example
+
+```typescript
+import * as React from 'react';
+import { renderProp } from 'render-propper';
+
+const component = (
+  <SumEven array={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}>
+    {result => <div>{result}</div>}
+  </SumEven>
+);
+
+/*
+* <div>30</div>
+*/
+```
+
+#### Generic Object SumEvenNumbers Example
+
+```typescript
+import * as R from 'ramda';
+import { renderProp } from 'render-propper';
+
+const example = {
+  children: input => input,
+  array: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+};
+
+console.log(SumEven(example)); // 30
+```
 
 ## Inspiration
 
-// TODO
+The [Ramda library][ramda].
 
 ## Other Solutions
 
@@ -77,6 +164,7 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- prettier-ignore -->
 | [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/smacpherson64/render-propper/commits?author=smacpherson64 "Code") [🎨](#design-smacpherson64 "Design") [📖](https://github.com/smacpherson64/render-propper/commits?author=smacpherson64 "Documentation") [🤔](#ideas-smacpherson64 "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/5865074?v=4" width="100px;"/><br /><sub><b>Chad Watson</b></sub>](https://github.com/chadwatson)<br />[💬](#question-chadwatson "Answering Questions") [💻](https://github.com/smacpherson64/render-propper/commits?author=chadwatson "Code") [🎨](#design-chadwatson "Design") [🤔](#ideas-chadwatson "Ideas, Planning, & Feedback") |
 | :---: | :---: |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -111,3 +199,4 @@ MIT
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/smacpherson64/render-propper.svg?style=social
 [emojis]: https://github.com/smacpherson64/all-contributors#emoji-key
 [all-contributors]: https://github.com/smacpherson64/all-contributors
+[ramda]: https://ramdajs.com
