@@ -1,7 +1,6 @@
 <div align="center">
-<h1>`render-propper`</h1>
-
-<p>`render-propper` creates purely functional render props</p>
+<h1>render-propper</h1>
+<p>Helper to create functional render props</p>
 </div>
 
 <hr />
@@ -23,12 +22,14 @@
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION. It'll update automatically -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Getting Started](#getting-started)
-- [Installation](#installation)
+  - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
+  - [PassThrough Examples](#passthrough-examples)
+  - [SumEvenNumbers Example](#sumevennumbers-example)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Contributors](#contributors)
@@ -49,31 +50,39 @@ npm install --save render-propper
 
 ## Usage
 
-At it's core, `render-propper` passes the results from one function and passes it into a render function. The pass through example below helps break down how it works:
+Render propper helps to create functional render props. The example below helps break down how render propper accomplishes this goal:
 
 ```typescript
 import { renderProp } from 'render-propper';
 
-const value = 'value';
+/*
+* Determines how to transform input to a result that can be used by the renderer.
+* The current logic is an identity function that passes returns what is received.
+*
+* For example: assuming 'value' as input: the string 'value' would be returned to the renderer.
+*/
+const logic = input => input;
 
 /*
-* Handles what should happen to the input. 
-* The output of this function is passed to the render function.
+* Determines how to render the results to output.
+* The current logic is again an identity function that passes returns what is received.
+* (usually this would return some type of visual rendering but it can be anything)
+*
+* For example: assuming 'value' as input: the string 'value' would be returned (rendered) as output.
 */
-const logicFunction = input => input;
+const renderer = results => results;
 
 /*
-* Renders the results from the logicFunction into the desired output.
-* The rendered output usually some type of HTML or object but can be anything.
+* Generates the actual render prop using the renderer and logic.
+*
+* Returns a function awaiting input.
 */
-const renderFunction = results => results;
+const PassThrough = renderProp(() => renderer, logic);
 
-/*
-* Creates a PassThrough Render Prop that passes back the same value passed in.
-*/
-const PassThrough = renderProp(() => renderFunction, logicFunction);
-
+// Any value passed in will go through both logic and renderer and be returned.
 PassThrough(value); // 'value'
+PassThrough(5); // 5
+PassThrough(false); // false
 ```
 
 ## Examples
@@ -82,21 +91,49 @@ PassThrough(value); // 'value'
 
 The basic examples below take an object in and pass the same object back.
 
-#### React PassThrough Example
+All examples below use the same functional logic:
 
 ```typescript
-import * as React from 'react';
 import * as R from 'ramda';
+import { renderProp } from 'render-propper';
 
 const PassThrough = renderProp(R.prop('children'), R.prop('value'));
+```
+
+#### React PassThrough Example
+
+The PassThrough example using React.
+
+```tsx
+import * as React from 'react';
+
 const component = (
   <PassThrough value="value">{result => <div>{result}</div>}</PassThrough>
 );
 
-/* component:
-* <div>value</div>
-*/
+// <div>value</div>
 ```
+
+#### Generic Object PassThrough Example
+
+The PassThrough example using an object.
+
+```typescript
+const object = {
+  children: results => {
+    document.createElement('div');
+    div.innerHTML = results;
+
+    return div;
+  },
+  value: 'value'
+};
+
+PassThrough(object);
+// <div>value</div>
+```
+
+<hr />
 
 ### SumEvenNumbers Example
 
@@ -104,6 +141,7 @@ All examples below utilize the same functional logic:
 
 ```typescript
 import * as R from 'ramda';
+import { renderProp } from 'render-propper';
 
 const isEven = n => n % 2 === 0;
 
@@ -118,9 +156,8 @@ const SumEven = renderProp(R.prop('children'), sumEvenNumbers);
 
 #### React SumEvenNumbers Example
 
-```typescript
+```tsx
 import * as React from 'react';
-import { renderProp } from 'render-propper';
 
 const component = (
   <SumEven array={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}>
@@ -128,28 +165,30 @@ const component = (
   </SumEven>
 );
 
-/*
-* <div>30</div>
-*/
+// <div>30</div>
 ```
 
 #### Generic Object SumEvenNumbers Example
 
 ```typescript
-import * as R from 'ramda';
-import { renderProp } from 'render-propper';
-
 const example = {
-  children: input => input,
+  children: results => {
+    document.createElement('div');
+    div.innerHTML = results;
+
+    return div;
+  },
   array: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 };
 
-console.log(SumEven(example)); // 30
+PassThrough(object);
+
+// <div>30</div>
 ```
 
 ## Inspiration
 
-The [Ramda library][ramda].
+The main inspiration came from having utilizing [React][react] with the [Ramda library][ramda].
 
 ## Other Solutions
 
@@ -200,3 +239,4 @@ MIT
 [emojis]: https://github.com/smacpherson64/all-contributors#emoji-key
 [all-contributors]: https://github.com/smacpherson64/all-contributors
 [ramda]: https://ramdajs.com
+[react]: https://reactjs.org
