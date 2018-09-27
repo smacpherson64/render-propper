@@ -32,7 +32,7 @@
   - [SumEvenNumbers Examples](#sumevennumbers-examples)
 - [Exports](#exports)
   - [renderProps](#renderprops)
-  - [childrenRenderProps](#childrenrenderprops)
+  - [childrenRenderProp](#childrenrenderprop)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Contributors](#contributors)
@@ -212,7 +212,7 @@ The function is curried (childrenRenderProps is an example of this) and can be u
     <FullNameList names={... namesArray ...} example={names => names.map(nameMap)} />
 ```
 
-### childrenRenderProps
+### childrenRenderProp
 
 In React, often my default for render props is to use the children prop (explicitly or implicitly). This is a small helper that makes creating a childrenRenderProp easier.
 
