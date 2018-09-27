@@ -28,8 +28,8 @@
   - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
-  - [(More) PassThrough Examples](#more-passthrough-examples)
-  - [SumEvenNumbers Example](#sumevennumbers-example)
+  - [PassThrough Examples](#passthrough-examples)
+  - [SumEvenNumbers Examples](#sumevennumbers-examples)
 - [Exports](#exports)
   - [renderProps](#renderprops)
   - [childrenRenderProps](#childrenrenderprops)
@@ -92,7 +92,7 @@ PassThrough(false); // false
 
 ## Examples
 
-### (More) PassThrough Examples
+### PassThrough Examples
 
 The basic examples below take an object in and pass the same object back.
 
@@ -140,7 +140,7 @@ PassThrough(object);
 
 <hr />
 
-### SumEvenNumbers Example
+### SumEvenNumbers Examples
 
 All examples below utilize the same functional logic:
 
