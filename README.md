@@ -214,9 +214,11 @@ renderProps(renderer: Function);
 renderProps(renderer: Function, logic: Function);
 ```
 
-The main logic for creating render props.
+renderProp is curried which makes it useful to create render prop and render prop generator functions:
+- Passing both parameters, renderer and logic functions, creates a render prop function
+- Passing one parameters, renderer function, creates a render prop generator function that can generate any of render prop functions with different logic. 
 
-The function is curried (childrenRenderProps is an example of this) and can be used to generate renderProps functions:
+(childrenRenderProps is an example of a render prop generator function).
 
 ```tsx
     // Non-functional example for demonstration purposes:
@@ -252,7 +254,7 @@ In React, the children prop (explicitly or implicitly) is often used for render 
 
 ## Inspiration
 
-The main inspiration came from having fun connecting [Ramda library][ramda] and [React][react].
+The main inspiration came from having fun connecting the [Ramda library][ramda] with [React][react].
 
 ## Other Solutions
 
