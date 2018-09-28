@@ -193,7 +193,26 @@ PassThrough(object);
 
 ## Exports
 
-### renderProps
+All exports have the following Typescript generics associated with them:
+
+```typescript
+renderProps<Input, Results, Output>(...)
+
+/**
+* These default to any if not set:
+*
+* Input - The value coming in to the RenderProp
+* Results - The value passed from the logic function to the renderer function
+* Output - The output of the renderer function
+*/
+```
+
+### `renderProps`
+
+```typescript
+renderProps(renderer: Function);
+renderProps(renderer: Function, logic: Function);
+```
 
 The main logic for creating render props.
 
@@ -212,9 +231,13 @@ The function is curried (childrenRenderProps is an example of this) and can be u
     <FullNameList names={... namesArray ...} example={names => names.map(nameMap)} />
 ```
 
-### childrenRenderProp
+### `childrenRenderProp`
 
-In React, often my default for render props is to use the children prop (explicitly or implicitly). This is a small helper that makes creating a childrenRenderProp easier.
+```typescript
+childrenRenderProp(logic: Function);
+```
+
+In React, the children prop (explicitly or implicitly) is often used for render props. This function makes creating a children render prop a bit easier.
 
 ```tsx
     // Non-functional example for demonstration purposes:
@@ -229,7 +252,7 @@ In React, often my default for render props is to use the children prop (explici
 
 ## Inspiration
 
-The main inspiration came from having utilizing [React][react] with the [Ramda library][ramda].
+The main inspiration came from having fun connecting [Ramda library][ramda] and [React][react].
 
 ## Other Solutions
 
